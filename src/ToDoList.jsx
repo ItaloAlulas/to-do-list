@@ -17,7 +17,7 @@ function ToDoList() {
 
     function deleteTask(id) {
 
-        setTasks(t => t.filter((task) => task.id !== id))
+        setTasks(t => t.filter(task => task.id !== id))
     }
 
     function moveTaskUp(index) {

@@ -13,7 +13,7 @@
 Lista de tarefas para resolver os problemas do dia-a-dia sem estressar a cabeça.
 
 ---
-## **Demonstração**
+## **🕹️ Demonstração**
 👉🏻 [Clique Aqui](https://italoalulas.github.io/to-do-list/)
 
 

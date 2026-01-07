@@ -9,45 +9,42 @@ function ToDoList() {
 
         if (inputValue.trim() === '') return
 
-        setTasks(t => [...t, { id: crypto.randomUUID(),
-                               name: inputValue }])
+        setTasks(t => [...t, inputValue ])
 
         setInputValue('')
     }
 
-    function deleteTask(id) {
+    function deleteTask(key) {
 
-        setTasks(t => t.filter(task => task.id !== id))
+        const updatedTasks = tasks.filter((_, index) => index !== key)
+        setTasks(updatedTasks)
     }
 
     function moveTaskUp(index) {
 
-        if (index === 0) { return }
-
-        setTasks(t => {
-            const updatedTasks = [...t]
+        if (index > 0) {
+            const updatedTasks = [...tasks]
 
             const temp = updatedTasks[index]
             updatedTasks[index] = updatedTasks[index - 1]
             updatedTasks[index - 1] = temp
 
-            return updatedTasks
-        })
+            setTasks(updatedTasks)
+        }
     }
 
     function moveTaskDown(index) {
 
-        if (index === tasks.length-1 ) return
-
-        setTasks(t => {
-            const updatedTasks = [...t]
+        if (index < tasks.length-1 ) {
+            
+            const updatedTasks = [...tasks]
 
             const temp = updatedTasks[index]
             updatedTasks[index] = updatedTasks[index + 1]
             updatedTasks[index + 1] = temp
 
-            return updatedTasks
-        })
+            setTasks(updatedTasks)
+        }
     }
 
     return (
@@ -60,23 +57,33 @@ function ToDoList() {
                        value={inputValue} 
                        onChange={e => setInputValue(e.target.value)}
                 />
-                <button className='add-task-button' onClick={addTask}>Add</button>
+                <button 
+                    className='add-task-button' 
+                    onClick={addTask}>
+                    Add
+                </button>
             </div>
             <div className="tasks-container">
                 <ul>
                     {tasks.map((task, index) =>
-                        <li className='task' key={task.id}>
-                            <button className="delete-task-button" onClick={() => deleteTask(task.id)}>
+                        <li className='task' key={index}>
+                            <button
+                                className="delete-task-button"
+                                onClick={() => deleteTask(index)}>
                                 ✔
                             </button>
                             <div className="task-name-container">
-                                <p className='task-name'>{task.name}</p>
+                                <p className='task-name'>{task}</p>
                             </div>
                             <div className="move-buttons">
-                                <button className="up-button" onClick={() => moveTaskUp(index)}>
+                                <button 
+                                    className="up-button"
+                                    onClick={() => moveTaskUp(index)}>
                                     ▲
                                 </button>
-                                <button className="down-button" onClick={() => moveTaskDown(index)}>
+                                <button 
+                                    className="down-button"
+                                    onClick={() => moveTaskDown(index)}>
                                     ▼
                                 </button>
                             </div>
